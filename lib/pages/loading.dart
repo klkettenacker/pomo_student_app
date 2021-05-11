@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -18,9 +19,17 @@ class _LoadingState extends State<Loading> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-            child: SpinKitThreeBounce(
-      color: Colors.blue,
-      size: 40.0,
-    )));
+      child: SplashScreen(
+          seconds: 14,
+          navigateAfterSeconds: () {
+            Navigator.pushReplacementNamed(context, "/home");
+          },
+          title: new Text('Welcome In SplashScreen'),
+          image: new Image.asset('screenshot.png'),
+          backgroundColor: Colors.white,
+          styleTextUnderTheLoader: new TextStyle(),
+          photoSize: 100.0,
+          loaderColor: Colors.red),
+    ));
   }
 }

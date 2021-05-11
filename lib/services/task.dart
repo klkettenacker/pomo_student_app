@@ -13,4 +13,11 @@ class Task {
   double task_progress = 0.0;
 
   Task({this.pomo_count, this.task_name});
+
+  Map taskSettings = {
+    'focusTimeDuration': Duration(minutes: 25),
+    'breakTimeDuration': Duration(minutes: 5),
+    'longBreakTimeDuration': Duration(minutes: 30),
+    'pomoSession': 4
+  };
 }

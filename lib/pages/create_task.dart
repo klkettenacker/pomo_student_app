@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/task.dart';
+import 'package:flutter/cupertino.dart';
 
 class CreateTask extends StatefulWidget {
   @override
@@ -21,6 +22,19 @@ class _CreateTaskState extends State<CreateTask> {
 
   @override
   Widget build(BuildContext context) {
+    CupertinoAlertDialog nullPomoCountDialog = CupertinoAlertDialog(
+      title: Text("Pomo Count can't be 0"),
+      actions: [
+        CupertinoDialogAction(
+          child: Text('OK'),
+          onPressed: () {
+            setState(() {});
+            Navigator.pop(context);
+          },
+        )
+      ],
+    );
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -97,6 +111,14 @@ class _CreateTaskState extends State<CreateTask> {
                 style: TextStyle(color: Colors.red),
               ),
               onPressed: () {
+                if (pomo_counter <= 0) {
+                  print('bruh');
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (_) => nullPomoCountDialog);
+                }
+
                 Task newTask = new Task(
                     pomo_count: pomo_counter, task_name: taskController.text);
 
