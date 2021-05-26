@@ -25,7 +25,6 @@ class _LoadingState extends State<Loading> {
             Navigator.pushReplacementNamed(context, "/home");
           },
           title: new Text('Welcome In SplashScreen'),
-          image: new Image.asset('screenshot.png'),
           backgroundColor: Colors.white,
           styleTextUnderTheLoader: new TextStyle(),
           photoSize: 100.0,

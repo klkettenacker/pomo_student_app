@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:sizer/sizer.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -50,97 +51,99 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Container(
-                  child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(25.0, 0.0, 0.0, 0.0),
-                    child: Text(_day,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 40.0,
-                            letterSpacing: -2.0)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(5.0, 20.0, 0.0, 0.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(_month,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontSize: 20.0,
-                                letterSpacing: -2.0,
-                                height: 0.0)),
-                        Text(_year,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontSize: 20.0,
-                                letterSpacing: -2.0))
-                      ],
+    return Sizer(builder: (context, orientation, deviceType) {
+      return Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Column(
+              children: [
+                Container(
+                    child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25.0, 0.0, 0.0, 0.0),
+                      child: Text(_day,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 30.sp,
+                              letterSpacing: -2.0)),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(70.0, 0.0, 20.0, 0.0),
-                    child: Text(_dayOfWeek,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 30.0,
-                            letterSpacing: -.5)),
-                  ),
-                  IconButton(
-                      icon: Icon(Icons.article_sharp),
-                      onPressed: () {
-                        _pushArchived();
-                      })
-                ],
-              )),
-              Divider(),
-              Expanded(
-                child: taskListView(),
-              )
-            ],
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5.0, 20.0, 0.0, 0.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(_month,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 15.sp,
+                                  letterSpacing: -2.0,
+                                  height: 0.0)),
+                          Text(_year,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 15.sp,
+                                  letterSpacing: -2.0))
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(40.0, 0.0, 00.0, 0.0),
+                      child: Text(_dayOfWeek,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 20.sp,
+                              letterSpacing: -.5)),
+                    ),
+                    IconButton(
+                        icon: Icon(Icons.article_sharp),
+                        onPressed: () {
+                          _pushArchived();
+                        })
+                  ],
+                )),
+                Divider(),
+                Expanded(
+                  child: taskListView(),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButton: Container(
-        width: 70.0,
-        height: 70.0,
-        child: FloatingActionButton(
-          onPressed: () {
-            Future.delayed(Duration.zero, () {
-              Navigator.of(context)
-                  .pushNamed(
-                '/create',
-              )
-                  .then((value) {
-                if (value != null) {
-                  setState(() {
-                    taskList.add(value);
-                  });
-                }
+        floatingActionButton: Container(
+          width: 15.w,
+          height: 15.h,
+          child: FloatingActionButton(
+            onPressed: () {
+              Future.delayed(Duration.zero, () {
+                Navigator.of(context)
+                    .pushNamed(
+                  '/create',
+                )
+                    .then((value) {
+                  if (value != null) {
+                    setState(() {
+                      taskList.add(value);
+                    });
+                  }
+                });
               });
-            });
-          },
-          backgroundColor: Colors.red,
-          child: Icon(
-            Icons.add,
-            size: 30.0,
+            },
+            backgroundColor: Colors.red,
+            child: Icon(
+              Icons.add,
+              size: 30.0,
+            ),
           ),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      );
+    });
   }
 
   ListView taskListView() {
@@ -155,9 +158,7 @@ class _HomeState extends State<Home> {
             dismissal: SlidableDismissal(
               child: SlidableDrawerDismissal(),
               onDismissed: (actionType) {
-                setState(() {
-                  taskList.removeAt(index);
-                });
+                setState(() {});
               },
             ),
             actionPane: SlidableBehindActionPane(),
@@ -171,6 +172,11 @@ class _HomeState extends State<Home> {
                     removedTask = taskList[index];
                     _archivedTasks.add(removedTask);
                     taskList.removeAt(index);
+                    final snackBar = SnackBar(
+                      content: Text('Successfuly archived!'),
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   });
                 },
               ),
@@ -183,6 +189,12 @@ class _HomeState extends State<Home> {
                     setState(() {
                       removedTask = taskList[index];
                       taskList.removeAt(index);
+
+                      final snackBar = SnackBar(
+                        content: Text('Successfuly deleted!'),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     });
                   })
             ],
@@ -211,7 +223,6 @@ class _HomeState extends State<Home> {
                           arguments: taskList[index])
                       .then((value) {
                     setState(() {
-                      taskList[index].task_progress;
                       if (taskList[index].isFinished == true) {}
                     });
                   });
