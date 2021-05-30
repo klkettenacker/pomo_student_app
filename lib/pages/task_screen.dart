@@ -23,6 +23,11 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
   //FOR BUTTON
   bool isPaused = false;
 
+  double _currentFocusSliderValue = 25;
+  double _currentBreakSliderValue = 5;
+  double _currentRestSliderValue = 30;
+  double _currentPomoRoundSliderValue = 4;
+
   TimerController _timerController;
   TimerStyle _timerStyle = TimerStyle.ring;
   TimerProgressIndicatorDirection _progressIndicatorDirection =
@@ -48,20 +53,19 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
 
     CupertinoAlertDialog finishedTaskDialog = CupertinoAlertDialog(
       title: Text('Congrats on finishing your task!'),
-      content: Text('Add one more pomo?'),
       actions: [
-        CupertinoDialogAction(
-          child: Text('+1'),
-          onPressed: () {
-            setState(() {
-              task.pomo_count += 1;
-              task.isFinished = false;
-              isBreakTime = false;
-              isLongBreakTime = false;
-            });
-            Navigator.pop(context);
-          },
-        ),
+        // CupertinoDialogAction(
+        //   child: Text('+1'),
+        //   onPressed: () {
+        //     setState(() {
+        //       task.pomo_count += 1;
+        //       task.isFinished = false;
+        //       isBreakTime = false;
+        //       isLongBreakTime = false;
+        //     });
+        //     Navigator.pop(context);
+        //   },
+        // ),
         CupertinoDialogAction(
           child: Text('Done'),
           onPressed: () {
@@ -106,16 +110,16 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                         .inMinutes
                         .toString();
                     //SETTINGS FOR POMO TASK
-                    final _focusController =
-                        TextEditingController(text: focusTimeInitialValue);
-                    final _breakController = TextEditingController(
-                      text: breakTimeInitialValue,
-                    );
-                    final _longBreakController = TextEditingController(
-                      text: longBreakTimeInitialValue,
-                    );
-                    final _sessionController = TextEditingController(
-                        text: task.taskSettings['pomoSession'].toString());
+                    // final _focusController =
+                    //     TextEditingController(text: focusTimeInitialValue);
+                    // final _breakController = TextEditingController(
+                    //   text: breakTimeInitialValue,
+                    // );
+                    // final _longBreakController = TextEditingController(
+                    //   text: longBreakTimeInitialValue,
+                    // );
+                    // final _sessionController = TextEditingController(
+                    //     text: task.taskSettings['pomoSession'].toString());
 
                     showModalBottomSheet(
                         shape: RoundedRectangleBorder(
@@ -125,137 +129,104 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                         builder: (BuildContext context) {
                           return SingleChildScrollView(
                             child: Container(
-                                height: 500,
+                                height: 400,
                                 child: Center(
                                   child: Column(
                                     children: [
                                       SizedBox(
                                         height: 4.h,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Text('focus time',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black)),
-                                              Container(
-                                                width: 100,
-                                                child: TextFormField(
-                                                  controller: _focusController,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 15.sp,
-                                                  ),
-                                                  keyboardType: TextInputType
-                                                      .numberWithOptions(
-                                                          decimal: true),
-                                                  inputFormatters: [
-                                                    FilteringTextInputFormatter
-                                                        .allow(RegExp(
-                                                            r'^\d+\.?\d{0,2}')),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            width: 40,
-                                          ),
-                                          Column(children: [
-                                            Text('break time',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black)),
-                                            Container(
-                                              width: 100,
-                                              child: TextFormField(
-                                                controller: _breakController,
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 15.sp,
-                                                ),
-                                                keyboardType: TextInputType
-                                                    .numberWithOptions(
-                                                        decimal: true),
-                                                inputFormatters: [
-                                                  FilteringTextInputFormatter
-                                                      .allow(RegExp(
-                                                          r'^\d+\.?\d{0,2}')),
-                                                ],
-                                              ),
-                                            ),
-                                          ]),
-                                        ],
-                                      ),
-                                      SizedBox(height: 30),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Text('rest time',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black)),
-                                              Container(
-                                                width: 100,
-                                                child: TextFormField(
-                                                  controller:
-                                                      _longBreakController,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 15.sp,
-                                                  ),
-                                                  keyboardType: TextInputType
-                                                      .numberWithOptions(
-                                                          decimal: true),
-                                                  inputFormatters: [
-                                                    FilteringTextInputFormatter
-                                                        .allow(RegExp(
-                                                            r'^\d+\.?\d{0,2}')),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(width: 10.w),
-                                          Column(
-                                            children: [
-                                              Text('pomo session',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black)),
-                                              Container(
-                                                width: 100,
-                                                child: TextFormField(
-                                                  controller:
-                                                      _sessionController,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 15.sp,
-                                                  ),
-                                                  keyboardType: TextInputType
-                                                      .numberWithOptions(
-                                                          decimal: true),
-                                                  inputFormatters: [
-                                                    FilteringTextInputFormatter
-                                                        .allow(RegExp(
-                                                            r'^\d+\.?\d{0,2}')),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                      Text('focus time',
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                      StatefulBuilder(
+                                          builder: (context, setState) {
+                                        return Slider(
+                                            activeColor: Colors.red,
+                                            inactiveColor: Colors.grey,
+                                            value: _currentFocusSliderValue,
+                                            min: 5,
+                                            max: 60,
+                                            divisions: 60,
+                                            label: _currentFocusSliderValue
+                                                .round()
+                                                .toString(),
+                                            onChanged: (double value) {
+                                              setState(() {
+                                                print(value);
+                                                _currentFocusSliderValue =
+                                                    value;
+                                              });
+                                            });
+                                      }),
+                                      Text('break time',
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                      StatefulBuilder(
+                                          builder: (context, setState) {
+                                        return Slider(
+                                            activeColor: Colors.red,
+                                            inactiveColor: Colors.grey,
+                                            value: _currentBreakSliderValue,
+                                            min: 1,
+                                            max: 40,
+                                            divisions: 100,
+                                            label: _currentBreakSliderValue
+                                                .round()
+                                                .toString(),
+                                            onChanged: (double value) {
+                                              setState(() {
+                                                print(value);
+                                                _currentBreakSliderValue =
+                                                    value;
+                                              });
+                                            });
+                                      }),
+                                      Text('rest time',
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                      StatefulBuilder(
+                                          builder: (context, setState) {
+                                        return Slider(
+                                            activeColor: Colors.red,
+                                            inactiveColor: Colors.grey,
+                                            value: _currentRestSliderValue,
+                                            min: 15,
+                                            max: 120,
+                                            divisions: 120,
+                                            label: _currentRestSliderValue
+                                                .round()
+                                                .toString(),
+                                            onChanged: (double value) {
+                                              setState(() {
+                                                print(value);
+                                                _currentRestSliderValue = value;
+                                              });
+                                            });
+                                      }),
+                                      Text('pomo session rounds',
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                      StatefulBuilder(
+                                          builder: (context, setState) {
+                                        return Slider(
+                                            activeColor: Colors.red,
+                                            inactiveColor: Colors.grey,
+                                            value: _currentPomoRoundSliderValue,
+                                            min: 1,
+                                            max: 8,
+                                            divisions: 8,
+                                            label: _currentPomoRoundSliderValue
+                                                .round()
+                                                .toString(),
+                                            onChanged: (double value) {
+                                              setState(() {
+                                                print(value);
+                                                _currentPomoRoundSliderValue =
+                                                    value;
+                                              });
+                                            });
+                                      }),
                                       SizedBox(
                                         height: 2.h,
                                       ),
@@ -267,21 +238,25 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                                                     Color>(Colors.red)),
                                         onPressed: () {
                                           setState(() {
-                                            var newFocusTime = int.parse(
-                                                _focusController.text
-                                                    .toString());
+                                            var newFocusTime =
+                                                _currentFocusSliderValue
+                                                    .round()
+                                                    .toInt();
 
-                                            var newBreakTime = int.parse(
-                                                _breakController.text
-                                                    .toString());
+                                            var newBreakTime =
+                                                _currentBreakSliderValue
+                                                    .round()
+                                                    .toInt();
 
-                                            var newLongBreakTime = int.parse(
-                                                _longBreakController.text
-                                                    .toString());
+                                            var newLongBreakTime =
+                                                _currentRestSliderValue
+                                                    .round()
+                                                    .toInt();
 
-                                            var newPomoSession = int.parse(
-                                                _sessionController.text
-                                                    .toString());
+                                            var newPomoSession =
+                                                _currentPomoRoundSliderValue
+                                                    .round()
+                                                    .toInt();
 
                                             var oldFocusTime = focusTime;
                                             var oldBreakTime = breakTime;
@@ -445,6 +420,7 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                           child: Icon(Icons.refresh)),
                       onPressed: () {
                         _timerController.reset();
+                        isPaused = false;
                       },
                     ),
                     //SizedBox(width: 20),

@@ -5,7 +5,7 @@
   <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
 
    <application
-        android:label="pomo_student_app"
+        android:label="To-Pomo"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

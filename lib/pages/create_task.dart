@@ -14,8 +14,6 @@ class _CreateTaskState extends State<CreateTask> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-
     taskController.dispose();
     pomo_counter = 0;
     super.dispose();

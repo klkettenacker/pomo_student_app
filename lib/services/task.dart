@@ -17,3 +17,127 @@ class Task {
     'pomoSession': 4
   };
 }
+// Row(
+//                                         mainAxisAlignment:
+//                                             MainAxisAlignment.center,
+//                                         children: [
+//                                           Column(
+//                                             children: [
+//                                               Text('focus time',
+//                                                   style: TextStyle(
+//                                                       fontWeight:
+//                                                           FontWeight.bold,
+//                                                       color: Colors.black)),
+//                                               Container(
+//                                                 width: 100,
+//                                                 child: TextFormField(
+//                                                   controller: _focusController,
+//                                                   textAlign: TextAlign.center,
+//                                                   style: TextStyle(
+//                                                     fontSize: 15.sp,
+//                                                   ),
+//                                                   keyboardType: TextInputType
+//                                                       .numberWithOptions(
+//                                                           decimal: true),
+//                                                   inputFormatters: [
+//                                                     FilteringTextInputFormatter
+//                                                         .allow(RegExp(
+//                                                             r'^\d+\.?\d{0,2}')),
+//                                                   ],
+//                                                 ),
+//                                               ),
+//                                             ],
+//                                           ),
+//                                           SizedBox(
+//                                             width: 40,
+//                                           ),
+//                                           Column(children: [
+//                                             Text('break time',
+//                                                 style: TextStyle(
+//                                                     fontWeight: FontWeight.bold,
+//                                                     color: Colors.black)),
+//                                             Container(
+//                                               width: 100,
+//                                               child: TextFormField(
+//                                                 controller: _breakController,
+//                                                 textAlign: TextAlign.center,
+//                                                 style: TextStyle(
+//                                                   fontSize: 15.sp,
+//                                                 ),
+//                                                 keyboardType: TextInputType
+//                                                     .numberWithOptions(
+//                                                         decimal: true),
+//                                                 inputFormatters: [
+//                                                   FilteringTextInputFormatter
+//                                                       .allow(RegExp(
+//                                                           r'^\d+\.?\d{0,2}')),
+//                                                 ],
+//                                               ),
+//                                             ),
+//                                           ]),
+//                                         ],
+//                                       ),
+//                                       SizedBox(height: 30),
+//                                       Row(
+//                                         mainAxisAlignment:
+//                                             MainAxisAlignment.center,
+//                                         children: [
+//                                           Column(
+//                                             children: [
+//                                               Text('rest time',
+//                                                   style: TextStyle(
+//                                                       fontWeight:
+//                                                           FontWeight.bold,
+//                                                       color: Colors.black)),
+//                                               Container(
+//                                                 width: 100,
+//                                                 child: TextFormField(
+//                                                   controller:
+//                                                       _longBreakController,
+//                                                   textAlign: TextAlign.center,
+//                                                   style: TextStyle(
+//                                                     fontSize: 15.sp,
+//                                                   ),
+//                                                   keyboardType: TextInputType
+//                                                       .numberWithOptions(
+//                                                           decimal: true),
+//                                                   inputFormatters: [
+//                                                     FilteringTextInputFormatter
+//                                                         .allow(RegExp(
+//                                                             r'^\d+\.?\d{0,2}')),
+//                                                   ],
+//                                                 ),
+//                                               ),
+//                                             ],
+//                                           ),
+//                                           SizedBox(width: 10.w),
+//                                           Column(
+//                                             children: [
+//                                               Text('pomo session',
+//                                                   style: TextStyle(
+//                                                       fontWeight:
+//                                                           FontWeight.bold,
+//                                                       color: Colors.black)),
+//                                               Container(
+//                                                 width: 100,
+//                                                 child: TextFormField(
+//                                                   controller:
+//                                                       _sessionController,
+//                                                   textAlign: TextAlign.center,
+//                                                   style: TextStyle(
+//                                                     fontSize: 15.sp,
+//                                                   ),
+//                                                   keyboardType: TextInputType
+//                                                       .numberWithOptions(
+//                                                           decimal: true),
+//                                                   inputFormatters: [
+//                                                     FilteringTextInputFormatter
+//                                                         .allow(RegExp(
+//                                                             r'^\d+\.?\d{0,2}')),
+//                                                   ],
+//                                                 ),
+//                                               ),
+//                                             ],
+//                                           ),
+//                                         ],
+//                                       ),

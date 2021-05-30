@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
   List<Task> _archivedTasks = [];
 
   Task removedTask;
-  int deletedIndex;
+  int removedTaskIndex;
 
   String _day = '';
   String _month = '';
@@ -55,14 +55,14 @@ class _HomeState extends State<Home> {
       return Scaffold(
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(1.0),
             child: Column(
               children: [
                 Container(
                     child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(25.0, 0.0, 0.0, 0.0),
+                      padding: const EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 0.0),
                       child: Text(_day,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -91,20 +91,39 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(40.0, 0.0, 00.0, 0.0),
-                      child: Text(_dayOfWeek,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 20.sp,
-                              letterSpacing: -.5)),
-                    ),
-                    IconButton(
-                        icon: Icon(Icons.article_sharp),
-                        onPressed: () {
-                          _pushArchived();
-                        })
+                    SizedBox(width: 2.w),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.bottomRight,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  10.0, 0.0, 10.0, 0.0),
+                              child: Text(_dayOfWeek,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontSize: 23.sp,
+                                      letterSpacing: -.5)),
+                            ),
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    1.0, 0.0, 10.0, 0.0),
+                                child: IconButton(
+                                    icon: Icon(Icons.article_sharp),
+                                    onPressed: () {
+                                      _pushArchived();
+                                    }),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 )),
                 Divider(),
@@ -135,6 +154,7 @@ class _HomeState extends State<Home> {
               });
             },
             backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
             child: Icon(
               Icons.add,
               size: 30.0,
@@ -174,6 +194,14 @@ class _HomeState extends State<Home> {
                     taskList.removeAt(index);
                     final snackBar = SnackBar(
                       content: Text('Successfuly archived!'),
+                      action: SnackBarAction(
+                        label: 'Undo',
+                        onPressed: () {
+                          setState(() {
+                            taskList.insert(removedTaskIndex, removedTask);
+                          });
+                        },
+                      ),
                     );
 
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -188,10 +216,19 @@ class _HomeState extends State<Home> {
                   onTap: () {
                     setState(() {
                       removedTask = taskList[index];
+                      removedTaskIndex = index;
                       taskList.removeAt(index);
 
                       final snackBar = SnackBar(
                         content: Text('Successfuly deleted!'),
+                        action: SnackBarAction(
+                          label: 'Undo',
+                          onPressed: () {
+                            setState(() {
+                              taskList.insert(removedTaskIndex, removedTask);
+                            });
+                          },
+                        ),
                       );
 
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
